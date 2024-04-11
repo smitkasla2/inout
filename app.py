@@ -17,26 +17,27 @@ def main():
         img_str = base64.b64encode(img_bytes.getvalue()).decode('utf-8')
 
         if st.button("Check Size"):
-            # Pass image to IPython Notebook
-            result = st.write('''
+            # Replace placeholder in size.ipynb with actual image string
+            size_nb_content = '''
             # Check Image Size
             import io
             from PIL import Image
             import base64
 
             # Convert base64 string to bytes
-            img_bytes = io.BytesIO(base64.b64decode('{}'))
+            img_bytes = io.BytesIO(base64.b64decode('{0}'))
             image = Image.open(img_bytes)
 
-            # Get image size
+            # Get and print image size
             size = image.size
             size
-            '''.format(img_str), format='ipynb')
+            '''.format(img_str)
+
+            # Pass modified content to IPython Notebook
+            result = st.write(size_nb_content, format='ipynb')
 
             # Display result from size.ipynb
-            with st.echo():
-                size_result = st.capture_output(result)
-                st.write("Image Size:", size_result)
+            st.write("Image Size:", result)
 
 if __name__ == "__main__":
     main()
