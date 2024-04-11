@@ -1,8 +1,14 @@
 import streamlit as st
+from PIL import Image
 
 def main():
-    st.title("Hello, World!")
-    st.write("This is a simple Streamlit app.")
+    st.title("Image Uploader")
+
+    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+
+    if uploaded_file is not None:
+        image = Image.open(uploaded_file)
+        st.image(image, caption="Uploaded Image", use_column_width=True)
 
 if __name__ == "__main__":
     main()
